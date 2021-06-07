@@ -39,5 +39,5 @@ $chia->sendTransaction('xch1w0k7fwzrdkt8xqth45zln0d9anvw7gs26lkgv3yhngrdct7hkpmq
 ```
 
 ## Donations
-**TRX**: TB8gbB3erNn96poiMumkzX7my4Em9Lx9oG
-**XCH**: xch1w0k7fwzrdkt8xqth45zln0d9anvw7gs26lkgv3yhngrdct7hkpmqdpyhmp
+ - TRX: ```TB8gbB3erNn96poiMumkzX7my4Em9Lx9oG```
+ - XCH: ```xch1w0k7fwzrdkt8xqth45zln0d9anvw7gs26lkgv3yhngrdct7hkpmqdpyhmp```
