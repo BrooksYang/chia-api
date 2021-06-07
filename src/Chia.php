@@ -309,11 +309,11 @@ class Chia
      * @param string $puzzleHash
      * @param int    $startHeight
      * @param int    $endHeight
-     * @param null   $includeSpentCoins
+     * @param bool   $includeSpentCoins
      * @return array
      * @throws ChiaException
      */
-    public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = 0, int $endHeight = 0, $includeSpentCoins = null)
+    public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = 0, int $endHeight = 0, bool $includeSpentCoins = true)
     {
         $data = ['puzzle_hash' => $puzzleHash];
         if ($startHeight) $data['start_height'] = $startHeight;
@@ -329,12 +329,12 @@ class Chia
      * @param string $address
      * @param int    $startHeight
      * @param int    $endHeight
-     * @param        $includeSpentCoins
+     * @param bool   $includeSpentCoins
      * @return array
      * @throws ChiaException
      * @throws ChiaUtilsException
      */
-    public function getCoinRecordsByAddress(string $address, int $startHeight = 0, int $endHeight = 0, $includeSpentCoins = null)
+    public function getCoinRecordsByAddress(string $address, int $startHeight = 0, int $endHeight = 0, bool $includeSpentCoins = true)
     {
         $puzzleHash = $this->address2PuzzleHash($address);
 
