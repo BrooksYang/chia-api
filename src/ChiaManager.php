@@ -115,12 +115,16 @@ class ChiaManager
      * @return array
      * @throws ChiaException
      */
-    public function request($url, $params = [], $server = self::FULL_NODE, $method = 'post')
+    public function request($url, array $params = [], string $server = self::FULL_NODE, string $method = 'post')
     {
         if ($server == self::WALLET_SERVER) {
             $response = $this->walletServer()->request($url, $params, $method);
         } else {
             $response = $this->fullNode()->request($url, $params, $method);
+        }
+        
+        if ($response['success'] === false) {
+            throw new ChiaException(json_encode($response));
         }
 
         return $response;

@@ -358,11 +358,11 @@ class Chia
     /**
      * Push Tx (Broadcast Transaction)
      *
-     * @param string $spendBundle
+     * @param array $spendBundle
      * @return array
      * @throws ChiaException
      */
-    public function pushTx(string $spendBundle): array
+    public function pushTx(array $spendBundle): array
     {
         return $this->manager->request('push_tx', [
             'spend_bundle' => $spendBundle,
@@ -497,6 +497,7 @@ class Chia
      * @param float  $amount
      * @return array
      * @throws ChiaException
+     * @throws ChiaUtilsException
      */
     public function sendTransaction(string $to, float $amount): array
     {
@@ -509,6 +510,8 @@ class Chia
 
         $signedTransaction = $this->createSignedTransaction($amount, $to);
 
-        return $this->pushTx($signedTransaction['signed_tx']['spend_bundle']);
+        $this->pushTx($signedTransaction['signed_tx']['spend_bundle']);
+
+        return $signedTransaction;
     }
 }
