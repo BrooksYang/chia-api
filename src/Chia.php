@@ -440,7 +440,7 @@ class Chia
      */
     public function getTransactions(): array
     {
-        return $this->manager->request('get_transaction', [
+        return $this->manager->request('get_transactions', [
             'wallet_id' => '1',
         ], ChiaManager::WALLET_SERVER);
     }
