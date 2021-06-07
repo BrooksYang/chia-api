@@ -318,7 +318,7 @@ class Chia
         $data = ['puzzle_hash' => $puzzleHash];
         if ($startHeight) $data['start_height'] = $startHeight;
         if ($endHeight) $data['end_height'] = $endHeight;
-        if ($includeSpentCoins) $data['include_spend_coins'] = $includeSpentCoins;
+        if ($includeSpentCoins) $data['include_spent_coins'] = $includeSpentCoins;
 
         return $this->manager->request('get_coin_records_by_puzzle_hash', $data);
     }
