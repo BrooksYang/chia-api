@@ -4,6 +4,7 @@ namespace BrooksYang\ChiaApi;
 
 use BrooksYang\ChiaApi\Provider\HttpProviderInterface;
 use BrooksYang\ChiaApi\Exception\ChiaException;
+use BrooksYang\ChiaUtils\Exception\ChiaUtilsException;
 
 /**
  * A PHP API for interacting with the Chia Network (XCH)
@@ -308,32 +309,36 @@ class Chia
      * @param string $puzzleHash
      * @param int    $startHeight
      * @param int    $endHeight
+     * @param null   $includeSpentCoins
      * @return array
      * @throws ChiaException
      */
-    public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = 0, int $endHeight = 0)
+    public function getCoinRecordsByPuzzleHash(string $puzzleHash, int $startHeight = 0, int $endHeight = 0, $includeSpentCoins = null)
     {
         $data = ['puzzle_hash' => $puzzleHash];
         if ($startHeight) $data['start_height'] = $startHeight;
         if ($endHeight) $data['end_height'] = $endHeight;
+        if ($includeSpentCoins) $data['include_spend_coins'] = $includeSpentCoins;
 
         return $this->manager->request('get_coin_records_by_puzzle_hash', $data);
     }
 
     /**
      * Get coin records by address
-     * 
+     *
      * @param string $address
      * @param int    $startHeight
      * @param int    $endHeight
+     * @param        $includeSpentCoins
      * @return array
      * @throws ChiaException
+     * @throws ChiaUtilsException
      */
-    public function getCoinRecordsByAddress(string $address, int $startHeight = 0, int $endHeight = 0)
+    public function getCoinRecordsByAddress(string $address, int $startHeight = 0, int $endHeight = 0, $includeSpentCoins = null)
     {
         $puzzleHash = $this->address2PuzzleHash($address);
 
-        return $this->getCoinRecordsByPuzzleHash($puzzleHash);
+        return $this->getCoinRecordsByPuzzleHash($puzzleHash, $startHeight, $endHeight, $includeSpentCoins);
     }
 
     /**
