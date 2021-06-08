@@ -72,7 +72,7 @@ class HttpProvider implements HttpProviderInterface
      * @param string      $statusPage
      * @throws ChiaException
      */
-    public function __construct(string $host, string $crt = null, string $sslKey = null, int $timeout = 30000,
+    public function __construct(string $host, string $crt = '', string $sslKey = '', int $timeout = 30000,
                                 array $headers = [], string $statusPage = '/')
     {
         if (!parse_url($host)) {
