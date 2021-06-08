@@ -4,6 +4,7 @@ namespace BrooksYang\ChiaApi;
 
 use BrooksYang\ChiaApi\Provider\HttpProviderInterface;
 use BrooksYang\ChiaApi\Exception\ChiaException;
+use BrooksYang\ChiaUtils\ChiaUtils;
 use BrooksYang\ChiaUtils\Exception\ChiaUtilsException;
 
 /**
@@ -513,5 +514,20 @@ class Chia
         $this->pushTx($signedTransaction['signed_tx']['spend_bundle']);
 
         return $signedTransaction;
+    }
+
+    /**
+     * Get coin info
+     *
+     * @param string $parentCoinInfo
+     * @param string $puzzleHash
+     * @param int    $amount
+     * @return false|string
+     */
+    public function getCoinInfo(string $parentCoinInfo, string $puzzleHash, int $amount)
+    {
+        $chiaUtils = new ChiaUtils();
+
+        return $chiaUtils->getCoinInfo($parentCoinInfo, $puzzleHash, $this->fromChia($amount));
     }
 }
