@@ -46,7 +46,7 @@ $chia->getCoinRecordsByPuzzleHash('0x73ede4b8436d96730177ad05f9bda5ecd8ef220ad7e
 // Get coin record by adress（Automatically convert xch address to puzzle hash）
 $chia->getCoinRecordsByAddress('xch1w0k7fwzrdkt8xqth45zln0d9anvw7gs26lkgv3yhngrdct7hkpmqdpyhmp');
 
-// Get coin info（）
+// Get coin info
 $parentCoinInfo = '0x2d9dadc33ae71e0452f96c9544d2040275c9b37025c42764b0017a63cc8a2af6';
 $puzzleHash = '0x73ede4b8436d96730177ad05f9bda5ecd8ef220ad7ec8644979a06dc2fd7b076';
 $amount = '8000000000'; // 0.008 xch
