@@ -17,7 +17,7 @@ composer require brooksyang/chia-api
 
 ```php
 use BrooksYang\ChiaAPI\Chia;
-use BrooksYang\ChiaAPI\Provider;
+use BrooksYang\ChiaAPI\HttpProvider;
 use BrooksYang\ChiaAPI\Exception\ChiaException;
 
 $cert = '/path/to/crt';
