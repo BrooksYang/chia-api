@@ -16,9 +16,9 @@ composer require brooksyang/chia-api
 ## Usage
 
 ```php
-use BrooksYang\ChiaAPI\Chia;
-use BrooksYang\ChiaAPI\HttpProvider;
-use BrooksYang\ChiaAPI\Exception\ChiaException;
+use BrooksYang\ChiaApi\Chia;
+use BrooksYang\ChiaApi\HttpProvider;
+use BrooksYang\ChiaApi\Exception\ChiaException;
 
 $cert = '/path/to/crt';
 $sslKey = '/path/to/ssl_key';
