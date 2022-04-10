@@ -517,6 +517,60 @@ class Chia
     }
 
     /**
+     * Send to multiple addresses or puzzle hashes in a single transaction
+     *
+     * @param string $walletId The wallet ID to use
+     * @param array $additions Array of transaction additions ($addition = [ 'amount' => $mojos, 'puzzle_hash' => $ph, 'memos' => [ 'Transaction memo' ] ])
+     * @param int $fee Transaction fee to send in mojos
+     * @return array A wallet API response
+     * @throws ChiaException
+     * @throws ChiaUtilsException
+     */
+    public function sendTransactionMulti(string $walletId, array $additions, $fee = 0)
+    {
+        $chiaUtils = new ChiaUtils();
+        $additionsHex = [];
+        
+        if (empty($additions)) {
+            throw new \InvalidArgumentException("additions cannot be empty in sendTransactionMulti");
+        }
+
+        foreach($additions as $idx => $ad) {
+            if (!is_array($ad)) {
+                throw new \InvalidArgumentException(
+                    sprintf("addition at index $idx must be array, %s given", gettype($ad))
+                );
+            } elseif (!isset($ad['amount']) || !is_int($ad['amount'])) {
+                throw new \InvalidArgumentException("missing or non-numeric amount in addition at key $idx");
+            } elseif (!isset($ad['address']) && !isset($address['puzzle_hash'])) {
+                throw new \InvalidArgumentException("address or puzzle_hash missing in addition at key $idx");
+            } elseif (isset($ad['puzzle_hash']) && !is_array($ad['puzzle_hash'])) {
+                throw new \InvalidArgumentException("puzzle_hash must be array in addition at key $idx");
+            }
+            
+            if (!empty($ad['address'])) {
+                $ad['puzzle_hash'] = $chiaUtils->decodePuzzleHash($ad['address']);
+            }
+            
+            $addition = [
+                'amount' => $ad['amount'],
+                'puzzle_hash' => $chiaUtils->bytesToHex($ad['puzzle_hash']),
+            ];
+            if (array_key_exists('memos', $ad)) {
+                $addition['memos'] = $ad['memos'];
+            }
+
+            $additionsHex[] = $addition;
+        }
+
+        return $this->manager->request('send_transaction_multi', [
+            'wallet_id' => $walletId,
+            'additions' => $additionsHex,
+            'fee'       => $fee,
+        ], ChiaManager::WALLET_SERVER);
+    }
+    
+    /**
      * Get coin info
      *
      * @param string $parentCoinInfo
