@@ -54,6 +54,17 @@ $chia->getCoinInfo($parentCoinInfo, $puzzleHash, $amount);
 
 // response
 0xb9f219f539783d3db37d04b164e2fcd2019419ce97f0d44da20754ec9b13a09c
+
+// Send multiple payments in a single transaction
+$fee = 10; // mojos
+$additions = [
+    [ 'amount' => 2500, 'address' => 'xch1w0k7fwzrdkt8xqth45zln0d9anvw7gs26lkgv3yhngrdct7hkpmqdpyhmp', ],
+    [ 'amount' =>  500, 'address' => 'xch1d5xe39yle3p574mnwvrnc0g6lafgn4dvkgay8kpmxat30krt8m4qxzymda', 'memos' => [ 'chiameh' ], ],
+];
+
+$response = $chia->sendTransactionMulti('1', $additions, $fee);
+$txn_id   = $response['transaction_id'];
+$tx       = $response['transaction'];
 ```
 
 ## Donations
